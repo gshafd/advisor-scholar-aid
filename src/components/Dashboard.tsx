@@ -125,7 +125,7 @@ export function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b bg-card sticky top-0 z-50">
         <div className="flex items-center justify-between px-6 py-4">
@@ -139,18 +139,16 @@ export function Dashboard() {
             </div>
           </div>
           
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList>
-              <TabsTrigger value="dashboard" className="gap-2">
-                <LayoutDashboard className="h-4 w-4" />
-                Dashboard
-              </TabsTrigger>
-              <TabsTrigger value="tracker" className="gap-2">
-                <ListChecks className="h-4 w-4" />
-                Tracker
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <TabsList>
+            <TabsTrigger value="dashboard" className="gap-2">
+              <LayoutDashboard className="h-4 w-4" />
+              Dashboard
+            </TabsTrigger>
+            <TabsTrigger value="tracker" className="gap-2">
+              <ListChecks className="h-4 w-4" />
+              Tracker
+            </TabsTrigger>
+          </TabsList>
         </div>
       </header>
 
@@ -231,6 +229,6 @@ export function Dashboard() {
         onOpenChange={(open) => !open && setSelectedScholarship(null)}
         onShortlist={() => selectedScholarship && handleShortlist(selectedScholarship)}
       />
-    </div>
+    </Tabs>
   );
 }
