@@ -6,8 +6,9 @@ import { scholarshipMappings } from "@/data/mappings";
 import { ScholarshipResults as ScholarshipResultsComponent } from "@/components/ScholarshipResults";
 import { ScholarshipDetail } from "@/components/ScholarshipDetail";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, GraduationCap } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+import { GlobalNav } from "@/components/GlobalNav";
 
 export default function ScholarshipResults() {
   const { studentId } = useParams<{ studentId: string }>();
@@ -46,30 +47,22 @@ export default function ScholarshipResults() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-50">
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={() => navigate(`/agent-search/${student.id}`)}
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
-              <GraduationCap className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">Scholarship Results</h1>
-              <p className="text-sm text-muted-foreground">{student.name} - {matchedScholarships.length} matches found</p>
-            </div>
-          </div>
-          <Button onClick={() => navigate("/action-plan")}>
-            View Action Plan
-          </Button>
+      <GlobalNav />
+      
+      <div className="border-b bg-card px-6 py-3">
+        <Button 
+          variant="ghost" 
+          size="sm"
+          onClick={() => navigate(`/agent-search/${student.id}`)}
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Agent Search
+        </Button>
+        <div className="mt-2">
+          <h2 className="text-xl font-bold text-foreground">Scholarship Results: {student.name}</h2>
+          <p className="text-sm text-muted-foreground">{matchedScholarships.length} matches found</p>
         </div>
-      </header>
+      </div>
 
       <div className="p-6 max-w-6xl mx-auto">
         <ScholarshipResultsComponent

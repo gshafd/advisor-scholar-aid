@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, GraduationCap, AlertCircle } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { Scholarship } from "@/data/scholarships";
+import { GlobalNav } from "@/components/GlobalNav";
 import {
   Select,
   SelectContent,
@@ -89,30 +90,7 @@ export default function TrackerPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-50">
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={() => navigate("/students")}
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
-              <GraduationCap className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">Scholarship Tracker</h1>
-              <p className="text-sm text-muted-foreground">{items.length} total scholarships</p>
-            </div>
-          </div>
-          <Button onClick={() => navigate("/action-plan")}>
-            View Action Plan
-          </Button>
-        </div>
-      </header>
+      <GlobalNav />
 
       <div className="p-6 max-w-7xl mx-auto">
         <div className="mb-6 flex items-center justify-between">

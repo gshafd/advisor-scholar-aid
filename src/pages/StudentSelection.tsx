@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { students, Student } from "@/data/students";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, GraduationCap } from "lucide-react";
+import { Search } from "lucide-react";
+import { GlobalNav } from "@/components/GlobalNav";
 import {
   Table,
   TableBody,
@@ -18,6 +19,20 @@ export default function StudentSelection() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortColumn, setSortColumn] = useState<keyof Student | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [studentProgress, setStudentProgress] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    // Load progress from localStorage
+    const actionPlan = JSON.parse(localStorage.getItem("actionPlan") || "[]");
+    const progress: Record<string, number> = {};
+    
+    actionPlan.forEach((item: any) => {
+      const studentId = item.student.id;
+      progress[studentId] = (progress[studentId] || 0) + 1;
+    });
+    
+    setStudentProgress(progress);
+  }, []);
 
   const filteredStudents = students.filter(
     (student) =>
@@ -66,22 +81,16 @@ export default function StudentSelection() {
     }
   };
 
+  const getProgressStatus = (studentId: string) => {
+    const count = studentProgress[studentId] || 0;
+    if (count === 0) return { text: "Not Started", variant: "secondary" as const };
+    if (count < 3) return { text: `${count} Shortlisted`, variant: "default" as const };
+    return { text: `${count} Shortlisted`, variant: "default" as const, className: "bg-green-600 hover:bg-green-700 text-white" };
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-50">
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
-              <GraduationCap className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">Scholarship Finder Agent</h1>
-              <p className="text-sm text-muted-foreground">Select a student to begin</p>
-            </div>
-          </div>
-        </div>
-      </header>
+      <GlobalNav />
 
       <div className="p-6 max-w-7xl mx-auto">
         <div className="mb-6 space-y-4">
@@ -122,6 +131,7 @@ export default function StudentSelection() {
                 </TableHead>
                 <TableHead>Nationality</TableHead>
                 <TableHead>Financial Need</TableHead>
+                <TableHead>Progress</TableHead>
                 <TableHead>Tags</TableHead>
               </TableRow>
             </TableHeader>
@@ -139,6 +149,14 @@ export default function StudentSelection() {
                   <TableCell>
                     <Badge variant={getFinancialNeedColor(student.financialNeed)}>
                       {student.financialNeed}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <Badge 
+                      variant={getProgressStatus(student.id).variant}
+                      className={getProgressStatus(student.id).className}
+                    >
+                      {getProgressStatus(student.id).text}
                     </Badge>
                   </TableCell>
                   <TableCell>

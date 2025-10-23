@@ -4,8 +4,9 @@ import { students, Student } from "@/data/students";
 import { StudentProfile } from "@/components/StudentProfile";
 import { AgentChat, ChatMessage } from "@/components/AgentChat";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, GraduationCap } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { scholarshipMappings } from "@/data/mappings";
+import { GlobalNav } from "@/components/GlobalNav";
 
 export default function AgentSearch() {
   const { studentId } = useParams<{ studentId: string }>();
@@ -77,27 +78,22 @@ export default function AgentSearch() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-50">
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={() => navigate("/students")}
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
-              <GraduationCap className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">Agent Search</h1>
-              <p className="text-sm text-muted-foreground">{student.name} - {student.major}</p>
-            </div>
-          </div>
+      <GlobalNav />
+      
+      <div className="border-b bg-card px-6 py-3">
+        <Button 
+          variant="ghost" 
+          size="sm"
+          onClick={() => navigate("/students")}
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Students
+        </Button>
+        <div className="mt-2">
+          <h2 className="text-xl font-bold text-foreground">Agent Search: {student.name}</h2>
+          <p className="text-sm text-muted-foreground">{student.major} - GPA: {student.GPA}</p>
         </div>
-      </header>
+      </div>
 
       <div className="p-6 max-w-5xl mx-auto space-y-6">
         <StudentProfile
