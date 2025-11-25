@@ -12,8 +12,8 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted p-6">
-      <div className="max-w-5xl mx-auto pt-20">
-        <div className="text-center space-y-8">
+      <div className="max-w-6xl mx-auto pt-20">
+        <div className="text-center space-y-8 mb-12">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="h-20 w-20 rounded-2xl bg-primary flex items-center justify-center shadow-lg">
               <GraduationCap className="h-12 w-12 text-primary-foreground" />
@@ -25,25 +25,56 @@ export default function Landing() {
               🎓 Scholarship Finder Agent
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              AI-powered scholarship matching for advisors. Find the best opportunities for your students.
+              AI-powered scholarship matching — for students and advisors
             </p>
           </div>
+        </div>
 
-          <div className="flex gap-4 justify-center">
-            <Button size="lg" onClick={() => navigate("/students")} className="text-lg px-8 py-6">
-              Enter Agent
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              onClick={() => setShowSources(!showSources)} 
-              className="text-lg px-8 py-6"
-            >
-              <Database className="h-5 w-5 mr-2" />
-              View Sources
-              {showSources ? <ChevronUp className="h-4 w-4 ml-2" /> : <ChevronDown className="h-4 w-4 ml-2" />}
-            </Button>
-          </div>
+        {/* Two Portal Tiles */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8">
+          {/* Student Portal Tile */}
+          <Card className="p-8 hover:border-primary/50 transition-all hover:shadow-lg cursor-pointer" onClick={() => navigate("/student-chat")}>
+            <div className="space-y-4">
+              <div className="h-48 bg-muted rounded-lg flex items-center justify-center overflow-hidden">
+                <div className="text-6xl">🎓</div>
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Student Portal</h2>
+              <p className="text-muted-foreground">Find scholarships for me</p>
+              <p className="text-sm text-muted-foreground">Chat with the Scholarship Assistant — fast, private, and tailored.</p>
+              <Button className="w-full" size="lg">
+                Enter Student Portal
+              </Button>
+            </div>
+          </Card>
+
+          {/* Admin Portal Tile */}
+          <Card className="p-8 hover:border-primary/50 transition-all hover:shadow-lg cursor-pointer" onClick={() => navigate("/students")}>
+            <div className="space-y-4">
+              <div className="h-48 bg-muted rounded-lg flex items-center justify-center overflow-hidden">
+                <div className="text-6xl">👨‍💼</div>
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Admin Portal</h2>
+              <p className="text-muted-foreground">Advisor view</p>
+              <p className="text-sm text-muted-foreground">Manage students, run searches, build action plans</p>
+              <Button className="w-full" size="lg">
+                Enter Admin Portal
+              </Button>
+            </div>
+          </Card>
+        </div>
+
+        {/* View Sources Button */}
+        <div className="flex justify-center">
+          <Button 
+            size="lg" 
+            variant="outline"
+            onClick={() => setShowSources(!showSources)} 
+            className="text-lg px-8 py-6"
+          >
+            <Database className="h-5 w-5 mr-2" />
+            View Sources
+            {showSources ? <ChevronUp className="h-4 w-4 ml-2" /> : <ChevronDown className="h-4 w-4 ml-2" />}
+          </Button>
         </div>
 
         {showSources && (
