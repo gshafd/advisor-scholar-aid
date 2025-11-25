@@ -4,17 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Search, ExternalLink, Info } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
 import { scholarships, Scholarship } from "@/data/scholarships";
 import { scholarshipMappings } from "@/data/mappings";
 import { toast } from "sonner";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { ScholarshipDetail } from "@/components/ScholarshipDetail";
 import {
   Select,
   SelectContent,
@@ -194,7 +188,7 @@ export default function StudentResults() {
               </div>
 
               <div className="text-xs text-muted-foreground">
-                Source: {scholarship.source}
+                Source: {new URL(scholarship.source).hostname.replace('www.', '')}
               </div>
 
               <div className="flex gap-2">
@@ -204,7 +198,6 @@ export default function StudentResults() {
                   className="flex-1"
                   onClick={() => setSelectedScholarship(scholarship)}
                 >
-                  <Info className="h-4 w-4 mr-1" />
                   Details
                 </Button>
                 <Button
@@ -216,16 +209,6 @@ export default function StudentResults() {
                   {shortlisted.includes(scholarship.id) ? "✓ Shortlisted" : "Shortlist"}
                 </Button>
               </div>
-
-              <Button
-                size="sm"
-                variant="outline"
-                className="w-full"
-                onClick={() => window.open(scholarship.source, "_blank")}
-              >
-                <ExternalLink className="h-4 w-4 mr-2" />
-                Apply Now
-              </Button>
             </Card>
           ))}
         </div>
@@ -248,52 +231,17 @@ export default function StudentResults() {
       </div>
 
       {/* Details Modal */}
-      {selectedScholarship && (
-        <Dialog open={!!selectedScholarship} onOpenChange={() => setSelectedScholarship(null)}>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle>{selectedScholarship.name}</DialogTitle>
-              <DialogDescription>Scholarship Details</DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-semibold mb-2">Amount</h4>
-                <p className="text-2xl font-bold text-primary">{selectedScholarship.amount}</p>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-2">Deadline</h4>
-                <p>{selectedScholarship.deadline}</p>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-2">Eligibility</h4>
-                <p className="text-sm text-muted-foreground">{selectedScholarship.eligibility}</p>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-2">Tags</h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedScholarship.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-2">Source</h4>
-                <a
-                  href={selectedScholarship.source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline flex items-center gap-2"
-                >
-                  {selectedScholarship.source}
-                  <ExternalLink className="h-4 w-4" />
-                </a>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      )}
+      <ScholarshipDetail
+        scholarship={selectedScholarship}
+        open={!!selectedScholarship}
+        onOpenChange={() => setSelectedScholarship(null)}
+        onShortlist={() => {
+          if (selectedScholarship) {
+            handleShortlist(selectedScholarship);
+            setSelectedScholarship(null);
+          }
+        }}
+      />
     </div>
   );
 }

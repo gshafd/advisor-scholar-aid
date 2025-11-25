@@ -18,7 +18,7 @@ export const scholarships: Scholarship[] = [
     matchScore: "92%",
     eligibility: "International STEM students with GPA > 3.5",
     tags: ["STEM", "GPA", "International"],
-    source: "un.org"
+    source: "https://www.un.org/en/academic-impact/scholarships"
   },
   {
     id: "SCH002",
@@ -28,7 +28,7 @@ export const scholarships: Scholarship[] = [
     matchScore: "88%",
     eligibility: "Female students in engineering or computer science",
     tags: ["Female", "Tech"],
-    source: "scholarshipowl.com"
+    source: "https://scholarshipowl.com/scholarships/by-category/women"
   },
   {
     id: "SCH003",
@@ -38,7 +38,7 @@ export const scholarships: Scholarship[] = [
     matchScore: "80%",
     eligibility: "High financial need, any major",
     tags: ["Need-based"],
-    source: "fastweb.com"
+    source: "https://www.fastweb.com/college-scholarships"
   },
   {
     id: "SCH004",
@@ -48,7 +48,7 @@ export const scholarships: Scholarship[] = [
     matchScore: "85%",
     eligibility: "Students focused on sustainability & environment",
     tags: ["Sustainability"],
-    source: "greenfuture.org"
+    source: "https://www.scholarships.com/financial-aid/college-scholarships/environmental-scholarships/"
   },
   {
     id: "SCH005",
@@ -58,7 +58,7 @@ export const scholarships: Scholarship[] = [
     matchScore: "75%",
     eligibility: "First-generation college students",
     tags: ["First-gen"],
-    source: "collegescholarships.org"
+    source: "https://www.collegescholarships.org/grants/first-generation-students.htm"
   },
   {
     id: "SCH006",
@@ -68,7 +68,7 @@ export const scholarships: Scholarship[] = [
     matchScore: "83%",
     eligibility: "Students in arts & humanities with GPA > 3.5",
     tags: ["Arts"],
-    source: "artgrants.net"
+    source: "https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-major/art-scholarships/"
   },
   {
     id: "SCH007",
@@ -78,7 +78,7 @@ export const scholarships: Scholarship[] = [
     matchScore: "86%",
     eligibility: "International students with leadership potential",
     tags: ["Leadership", "International"],
-    source: "globalleaders.org"
+    source: "https://bold.org/scholarships/by-tag/leadership/"
   },
   {
     id: "SCH008",
@@ -88,7 +88,7 @@ export const scholarships: Scholarship[] = [
     matchScore: "90%",
     eligibility: "Female students in STEM fields",
     tags: ["Female", "STEM"],
-    source: "womeninstem.net"
+    source: "https://www.niche.com/colleges/scholarships/women-in-stem/"
   },
   {
     id: "SCH009",
@@ -98,7 +98,7 @@ export const scholarships: Scholarship[] = [
     matchScore: "70%",
     eligibility: "Domestic students who are veterans",
     tags: ["Veteran", "Domestic"],
-    source: "vetsfund.org"
+    source: "https://www.benefits.va.gov/gibill/scholarships.asp"
   },
   {
     id: "SCH010",
@@ -108,6 +108,6 @@ export const scholarships: Scholarship[] = [
     matchScore: "84%",
     eligibility: "Students in technology or engineering",
     tags: ["Tech", "Engineering"],
-    source: "techinnovators.org"
+    source: "https://scholarshipowl.com/scholarships/by-major/computer-science"
   }
 ];

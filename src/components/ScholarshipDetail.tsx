@@ -54,12 +54,12 @@ export function ScholarshipDetail({ scholarship, open, onOpenChange, onShortlist
               <DialogTitle className="text-2xl mb-2">{scholarship.name}</DialogTitle>
               <DialogDescription>
                 <a 
-                  href={`https://${scholarship.source}`} 
+                  href={scholarship.source} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-primary hover:underline flex items-center gap-1 w-fit"
                 >
-                  Visit {scholarship.source}
+                  Visit {new URL(scholarship.source).hostname.replace('www.', '')}
                   <ExternalLink className="h-4 w-4" />
                 </a>
               </DialogDescription>
@@ -138,7 +138,7 @@ export function ScholarshipDetail({ scholarship, open, onOpenChange, onShortlist
             </Button>
             <Button
               className="flex-1"
-              onClick={() => window.open(`https://${scholarship.source}`, '_blank')}
+              onClick={() => window.open(scholarship.source, '_blank')}
             >
               <ExternalLink className="h-4 w-4 mr-2" />
               Open in Browser
