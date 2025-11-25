@@ -74,32 +74,41 @@ export default function StudentChat() {
 
   const fetchProfile = (studentId: string) => {
     const student = students.find(s => s.id === studentId);
-    if (student) {
-      const fetchedProfile: StudentProfile = {
-        name: student.name,
-        studentId: student.id,
-        gpa: student.GPA,
-        nationality: student.nationality,
-        stream: student.major,
-        parentalIncome: student.financialNeed === "High" ? "< $25k" : student.financialNeed === "Medium" ? "$25k - $50k" : "$50k - $100k",
-        otherDetails: student.tags.join(", "),
-        university: "Demo University"
-      };
-      setProfile(fetchedProfile);
-      
-      toast.success("✓ Profile fetched from college portal");
-      
-      addMessage("assistant", `Profile fetched successfully! Here's what I found:\n\n• Name: ${fetchedProfile.name}\n• Student ID: ${fetchedProfile.studentId}\n• GPA: ${fetchedProfile.gpa}\n• Nationality: ${fetchedProfile.nationality}\n• Stream: ${fetchedProfile.stream}\n• Parental Income: ${fetchedProfile.parentalIncome}\n• Other details: ${fetchedProfile.otherDetails}\n• University: ${fetchedProfile.university}\n\nWould you like to update any of these? (Edit inline on the right or type 'edit' to change)`, [
-        { label: "Search Now", action: "search_now" },
-        { label: "Edit Profile", action: "edit_profile" }
-      ]);
-      setCurrentStep("ready");
-    } else {
-      toast.error("No profile found");
-      addMessage("assistant", "❌ No profile found — please enter your details manually. Let's start with your name:");
-      setCurrentStep("name");
-      setIsCollecting(true);
-    }
+    
+    // Show loading messages
+    addMessage("assistant", "Fetching your profile from the college portal…");
+    
+    // Simulate realistic delay (3-5 seconds)
+    const delay = 3000 + Math.random() * 2000;
+    
+    setTimeout(() => {
+      if (student) {
+        const fetchedProfile: StudentProfile = {
+          name: student.name,
+          studentId: student.id,
+          gpa: student.GPA,
+          nationality: student.nationality,
+          stream: student.major,
+          parentalIncome: student.financialNeed === "High" ? "< $25k" : student.financialNeed === "Medium" ? "$25k - $50k" : "$50k - $100k",
+          otherDetails: student.tags.join(", "),
+          university: "Demo University"
+        };
+        setProfile(fetchedProfile);
+        
+        toast.success("✓ Profile fetched from college portal");
+        
+        addMessage("assistant", `Got it! I've fetched your details. Please review or edit anything if needed:\n\n• Name: ${fetchedProfile.name}\n• Student ID: ${fetchedProfile.studentId}\n• GPA: ${fetchedProfile.gpa}\n• Nationality: ${fetchedProfile.nationality}\n• Stream: ${fetchedProfile.stream}\n• Parental Income: ${fetchedProfile.parentalIncome}\n• Other details: ${fetchedProfile.otherDetails}\n• University: ${fetchedProfile.university}\n\nWould you like to update any of these? (Edit inline on the right or type 'edit' to change)`, [
+          { label: "Search Now", action: "search_now" },
+          { label: "Edit Profile", action: "edit_profile" }
+        ]);
+        setCurrentStep("ready");
+      } else {
+        toast.error("No profile found");
+        addMessage("assistant", "❌ No profile found — please enter your details manually. Let's start with your name:");
+        setCurrentStep("name");
+        setIsCollecting(true);
+      }
+    }, delay);
   };
 
   const handleSendMessage = () => {
@@ -195,12 +204,13 @@ export default function StudentChat() {
     // Store student profile in session
     localStorage.setItem("currentStudentProfile", JSON.stringify(profile));
     
-    addMessage("assistant", "🔍 Searching for scholarships...\n\nSearching FastWeb... ✓\nSearching ScholarshipOwl... ✓\nSearching UN.org... ✓\nSearching Fastweb India... ✓\n\nFiltering 300+ scholarships → Finding your best matches...");
+    addMessage("assistant", "🔍 Searching for scholarships...\n\nSearching ScholarshipOwl...\nSearching FastWeb...\nSearching UN.org...\nFiltering 300+ scholarships by eligibility...");
     
-    // Navigate to results after animation
+    // Navigate to results after realistic delay (5-8 seconds)
+    const delay = 5000 + Math.random() * 3000;
     setTimeout(() => {
       navigate("/student-results");
-    }, 3000);
+    }, delay);
   };
 
   const updateProfileField = (field: keyof StudentProfile, value: string | number) => {

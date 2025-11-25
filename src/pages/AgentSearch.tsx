@@ -34,6 +34,14 @@ export default function AgentSearch() {
       timestamp: new Date()
     }]);
 
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    setChatMessages(prev => [...prev, {
+      role: "system",
+      content: "🔍 Searching ScholarshipOwl...",
+      timestamp: new Date()
+    }]);
+
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     setChatMessages(prev => [...prev, {
@@ -42,23 +50,15 @@ export default function AgentSearch() {
       timestamp: new Date()
     }]);
 
-    await new Promise(resolve => setTimeout(resolve, 800));
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
     setChatMessages(prev => [...prev, {
       role: "system",
-      content: "🔍 Searching ScholarshipOwl...",
+      content: "📊 Filtering 300+ scholarships by eligibility...",
       timestamp: new Date()
     }]);
 
-    await new Promise(resolve => setTimeout(resolve, 800));
-
-    setChatMessages(prev => [...prev, {
-      role: "system",
-      content: "📊 Filtering 300+ scholarships...",
-      timestamp: new Date()
-    }]);
-
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     const scholarshipIds = scholarshipMappings[student.id] || [];
     
